@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import NavBar from './components/NavBar';
+import SortingVisualizer from './components/SortingVisualizer';
+import {
+  Routes,
+  Route,
+  BrowserRouter
+} from "react-router-dom";
 
 function App() {
+  const [type,settype]=useState('merge');
+  const [sort,setsort]=useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <NavBar settype={settype} setsort={setsort}/>
+        <Routes>
+          <Route exact path='/' element={<SortingVisualizer key='merge' type={type} sort={sort} setsort={setsort}/>}></Route>
+          <Route exact path='/merge' element={<SortingVisualizer key='merge' type={type} sort={sort} setsort={setsort}/>}></Route>
+          <Route exact path='/bubble' element={<SortingVisualizer key='bubble' type={type} sort={sort} setsort={setsort}/>}></Route>
+          <Route exact path='/quick' element={<SortingVisualizer key='quick' type={type} sort={sort} setsort={setsort}/>}></Route>
+          <Route exact path='/selection' element={<SortingVisualizer key='selection' type={type} sort={sort} setsort={setsort}/>}></Route>
+        </Routes>
+      </BrowserRouter>
+
+    </>
   );
 }
 
